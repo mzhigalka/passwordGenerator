@@ -1,5 +1,6 @@
 import './index.scss';
 import React from 'react';
+import { isValidInputTimeValue } from '@testing-library/user-event/dist/utils';
 
 function App() {
   const passwordValues = [8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -11,6 +12,7 @@ function App() {
   const [lengthPassword, setLengthPassword] = React.useState(passwordValues[0]); 
   const [isSymbolsUse, setIsSymbolsUse] = React.useState(false); 
   const [isNumbersUse, setIsNumbersUse] = React.useState(false); 
+  const [isPasswordCopy, setIsPasswordCopy] = React.useState(false);
 
   const handlePasswordGenerator = () => {
     let currentResult = '';
@@ -36,6 +38,21 @@ function App() {
 
   const handleNumberssUse = () => {
     setIsNumbersUse(!isNumbersUse);
+  };
+
+  const handlePasswordCopy = () => {
+    if (result) {
+      let timerId = null;
+
+      navigator.clipboard.writeText(result).then(() => {
+          setIsPasswordCopy(true);
+
+          timerId = setTimeout(() => {
+              setIsPasswordCopy(false);
+              clearTimeout(timerId)
+          }, 3000);
+      });
+    };
   };
 
   return (
@@ -86,9 +103,9 @@ function App() {
         />        
         <label for="checkbox4" />
       </div>
-
       <button onClick={handlePasswordGenerator}>Сгенерировать</button>
-      {/* <button className='btn-copy'>Скопировать</button> */}
+      <button onClick={handlePasswordCopy} className='btn-copy'>Копировать</button>
+      {isPasswordCopy && <span className='password-copy'>Скопиравано!</span>}
     </div>
   );
 }
