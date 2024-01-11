@@ -1,6 +1,5 @@
 import './index.scss';
 import React from 'react';
-import { isValidInputTimeValue } from '@testing-library/user-event/dist/utils';
 
 function App() {
   const passwordValues = [8, 9, 10, 11, 12, 13, 14, 15, 16];
