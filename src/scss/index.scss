@@ -23,6 +23,14 @@ body {
   box-shadow: 0 15px 10px rgba(0, 13, 189, 0.05);
   min-height: 536px;
 
+  @media (max-width: 460px) {
+    width: 350px;
+  }
+
+  @media (max-width: 400px) {
+    width: 300px;
+  }
+
   button {
     margin-top: 20px;
     padding: 18px;
@@ -75,6 +83,12 @@ body {
     background-color: #e9e9ff;
     border-radius: 30px;
     z-index: -1;
+
+    @media (max-width: 530px) {
+      width: calc(100% + 10%);
+      left: -15px;
+      top: -30px;
+    }
   }
 
   .subtitle {
