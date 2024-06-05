@@ -104,7 +104,11 @@ function App() {
         />
         <label htmlFor="checkbox4" />
       </div>
-      <button onClick={handlePasswordGenerator}>Сгенерировать</button>
+      <button
+        disabled={lengthPassword >= 17 ? true : false}
+        onClick={handlePasswordGenerator}>
+        Сгенерировать
+      </button>
       <button onClick={handlePasswordCopy} className="btn-copy">
         Копировать
       </button>
