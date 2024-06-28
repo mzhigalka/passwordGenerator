@@ -1,11 +1,13 @@
-import "./scss/index.scss";
 import React from "react";
+import "./scss/index.scss";
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   const passwordValues = [8, 9, 10, 11, 12, 13, 14, 15, 16];
   const symbols = "!@#$%^&()_+?><:{}[]";
   const numbers = "0123456789";
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const isValidPasswordLength = (length: number) => length >= 8 && length <= 16;
 
   const [result, setResult] = React.useState<string>("2UYsAhMd");
   const [lengthPassword, setLengthPassword] = React.useState<number>(passwordValues[0]);
@@ -56,6 +58,16 @@ function App() {
     }
   };
 
+  const handleLenghtPassword = () => {
+    if (!isValidPasswordLength(lengthPassword)) {
+      const errorMessage = lengthPassword < 8
+        ? "Длинна пароля слишком короткая. Минимальная длина - 8 символов."
+        : "Длинна пароля слишком длинная. Максимальная длина - 16 символов.";
+
+      toast.error(errorMessage);
+    }
+  }
+
   return (
     <div className="App">
       <span className="subtitle">Пароль:</span>
@@ -105,14 +117,19 @@ function App() {
         <label htmlFor="checkbox4" />
       </div>
       <button
-        disabled={lengthPassword >= 17 ? true : false}
-        onClick={handlePasswordGenerator}>
+        onClick={
+          lengthPassword > 16 || lengthPassword < 8
+            ? handleLenghtPassword
+            : handlePasswordGenerator
+        }
+      >
         Сгенерировать
       </button>
       <button onClick={handlePasswordCopy} className="btn-copy">
         Копировать
       </button>
       {isPasswordCopy && <span className="password-copy">Скопировано!</span>}
+      <Toaster />
     </div>
   );
 }
