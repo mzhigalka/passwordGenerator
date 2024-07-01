@@ -1,6 +1,7 @@
 import React from "react";
 import "./scss/index.scss";
 import toast, { Toaster } from 'react-hot-toast';
+import { motion, AnimatePresence } from "framer-motion";
 
 function App() {
   const passwordValues = [8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -68,6 +69,28 @@ function App() {
     }
   }
 
+  const variants = {
+    initial: {
+      y: -25,
+      opacity: 0
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 1,
+        ease: 'easeOut'
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+        ease: 'easeIn'
+      }
+    }
+  };
+
   return (
     <div className="App">
       <span className="subtitle">Пароль:</span>
@@ -128,7 +151,18 @@ function App() {
       <button onClick={handlePasswordCopy} className="btn-copy">
         Копировать
       </button>
-      {isPasswordCopy && <span className="password-copy">Скопировано!</span>}
+      <AnimatePresence>
+        {isPasswordCopy &&
+          <motion.span
+            className="password-copy"
+            animate='animate'
+            initial="initial"
+            exit='exit'
+            variants={variants}
+          >
+            Скопировано!
+          </motion.span>}
+      </AnimatePresence>
       <Toaster />
     </div>
   );
