@@ -36,6 +36,8 @@ function App() {
   const [isSymbolsUse, setIsSymbolsUse] = React.useState<boolean>(false);
   const [isNumbersUse, setIsNumbersUse] = React.useState<boolean>(false);
   const [isPasswordCopy, setIsPasswordCopy] = React.useState<boolean>(false);
+  const [appAnimationComplete, setAppAnimationComplete] = React.useState<boolean>(false);
+
 
   const handlePasswordGenerator = () => {
     let currentResult = "";
@@ -92,7 +94,14 @@ function App() {
 
 
   return (
-    <div className="App">
+    <motion.div
+      // className="App"
+      className={`App ${appAnimationComplete ? 'app-animation-complete' : ''}`}
+      initial={{ opacity: 0, y: -700 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      onAnimationComplete={() => setAppAnimationComplete(true)}
+    >
       <span className="subtitle">Пароль:</span>
       <h2>{result}</h2>
       <div className="row">
@@ -164,7 +173,7 @@ function App() {
           </motion.span>}
       </AnimatePresence>
       <Toaster />
-    </div>
+    </motion.div>
   );
 }
 
