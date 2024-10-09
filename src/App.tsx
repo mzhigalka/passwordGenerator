@@ -2,7 +2,7 @@ import React from "react";
 import "./scss/index.scss";
 import toast, { Toaster } from 'react-hot-toast';
 import { motion, AnimatePresence } from "framer-motion";
-
+ 
 function App() {
   const passwordValues = [8, 9, 10, 11, 12, 13, 14, 15, 16];
   const symbols = "!@#$%^&()_+?><:{}[]";
