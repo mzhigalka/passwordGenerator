@@ -10,7 +10,7 @@ function App() {
   let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const isValidPasswordLength = (length: number) => length >= 8 && length <= 16;
   const variants = {
-    initial: {
+    initial: { 
       y: -25,
       opacity: 0
     },
